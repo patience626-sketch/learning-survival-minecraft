@@ -1,1 +1,269 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>學習生存戰 MINECRAFT</title>
+
+  <!-- Minecraft 像素字體（可改成你喜歡的） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="logo">⛏️ 學習生存戰</div>
+        <div class="subtitle">MINECRAFT</div>
+      </div>
+      <nav class="topbar-right">
+        <button class="btn btn-ghost" id="navHome">首頁</button>
+        <button class="btn btn-ghost" id="navAdmin">匯入題庫(PDF)</button>
+      </nav>
+    </header>
+
+    <main class="main">
+      <!-- HOME -->
+      <section id="screen-home" class="screen">
+        <div class="panel">
+          <h1 class="h1">學習生存戰 MINECRAFT</h1>
+          <p class="p">選角色（只代入感，不存檔），選學習階段，進副本闖關！</p>
+
+          <div class="grid-2">
+            <div class="card">
+              <h2 class="h2">① 選角色</h2>
+              <div class="row">
+                <button class="btn btn-primary" id="pickXigua">🍉 西瓜</button>
+                <button class="btn btn-primary" id="pickYouzi">🍊 柚子</button>
+              </div>
+              <div class="info">目前角色：<span id="currentKidLabel">未選擇</span></div>
+            </div>
+
+            <div class="card">
+              <h2 class="h2">② 選學習階段</h2>
+              <div class="form">
+                <label class="label">年級</label>
+                <select id="selGrade" class="select"></select>
+
+                <label class="label">學期</label>
+                <select id="selTerm" class="select"></select>
+
+                <label class="label">階段</label>
+                <select id="selPhase" class="select"></select>
+              </div>
+
+              <div class="row">
+                <button class="btn btn-secondary" id="goDungeons">進副本選單 ➜</button>
+              </div>
+
+              <div class="hint">
+                不用存檔也能避免一直重複：用「年級/學期/階段」分題庫包，本場再亂數抽題。
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DUNGEONS -->
+      <section id="screen-dungeons" class="screen hidden">
+        <div class="panel">
+          <div class="crumb">
+            <span id="crumbKid"></span> /
+            <span id="crumbStage"></span>
+          </div>
+
+          <h2 class="h2">③ 選副本</h2>
+          <p class="p">第一版只開放「文字魔法森林 / 數字金礦場」，其他顯示施工中（你之後可以慢慢加題包）。</p>
+
+          <div class="grid-3" id="dungeonGrid"></div>
+
+          <div class="row">
+            <button class="btn btn-ghost" id="backHome">← 回首頁</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- RUN -->
+      <section id="screen-run" class="screen hidden">
+        <div class="panel">
+          <div class="run-top">
+            <div class="crumb">
+              <span id="runKid"></span> /
+              <span id="runPackTitle"></span>
+            </div>
+            <div class="pill">本場題數：<span id="runTotal"></span></div>
+          </div>
+
+          <div class="progressbar">
+            <div class="progressbar-inner" id="runProgress"></div>
+          </div>
+
+          <div id="questionCard" class="card">
+            <div class="q-meta">
+              <div class="pill">第 <span id="qIndex"></span> 題</div>
+              <div class="pill">難度 <span id="qDiff"></span></div>
+            </div>
+
+            <div class="q-prompt" id="qPrompt"></div>
+
+            <!-- MCQ -->
+            <div id="mcqArea" class="choices hidden"></div>
+
+            <!-- FILL -->
+            <div id="fillArea" class="hidden">
+              <div class="row">
+                <input id="fillInput" class="input" placeholder="請輸入答案…" />
+                <button class="btn btn-primary" id="fillSubmit">送出</button>
+              </div>
+            </div>
+
+            <div id="feedback" class="feedback hidden"></div>
+
+            <div class="row right">
+              <button class="btn btn-secondary hidden" id="nextBtn">下一題 ➜</button>
+            </div>
+          </div>
+
+          <div id="resultCard" class="card hidden">
+            <h2 class="h2">本場結算</h2>
+            <div class="grid-2">
+              <div class="card card-inner">
+                <div class="big">✅ 答對：<span id="resCorrect"></span> / <span id="resTotal"></span></div>
+                <div class="big">⏱️ 完成副本：<span id="resDungeon"></span></div>
+                <div class="small">（本版本不存檔；每次進副本是一場新的冒險）</div>
+              </div>
+
+              <div class="card card-inner">
+                <div class="big">🎒 本場獲得零件</div>
+                <div id="resParts" class="parts"></div>
+              </div>
+            </div>
+
+            <div class="card card-inner">
+              <div class="big">🏠 本場蓋屋展示</div>
+              <div id="resHouses" class="houses"></div>
+              <div class="small">（展示用：依零件換算房屋數，不做拖拉、不做永久存檔）</div>
+            </div>
+
+            <div class="row">
+              <button class="btn btn-primary" id="playAgain">再玩一場</button>
+              <button class="btn btn-ghost" id="backDungeons">回副本選單</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADMIN (PDF/JSON Import Tool) -->
+      <section id="screen-admin" class="screen hidden">
+        <div class="panel">
+          <h2 class="h2">題庫匯入中心（PDF → 文字 → 題庫 JSON）</h2>
+          <p class="p">
+            ✅ GitHub-only 的「保留 PDF 匯入題目」做法：在這裡上傳 <b>可複製文字</b> 的 PDF，
+            解析出文字後轉成題目草稿，最後下載成 JSON，然後你把 JSON 丟進 repo 的 <code>/packs</code>。
+          </p>
+
+          <div class="grid-2">
+            <div class="card">
+              <h3 class="h3">A. 題庫包資訊（meta）</h3>
+              <div class="form">
+                <label class="label">Pack id（檔名建議一致）</label>
+                <input id="metaId" class="input" placeholder="例：g2-1-mid-chinese" />
+
+                <label class="label">標題</label>
+                <input id="metaTitle" class="input" placeholder="例：二年級上｜期中｜文字魔法森林" />
+
+                <label class="label">年級 (grade)</label>
+                <input id="metaGrade" class="input" placeholder="例：2" />
+
+                <label class="label">學期 (term)</label>
+                <select id="metaTerm" class="select">
+                  <option value="1-1">1-1</option>
+                  <option value="1-2">1-2</option>
+                  <option value="2-1" selected>2-1</option>
+                  <option value="2-2">2-2</option>
+                  <option value="3-1">3-1</option>
+                  <option value="3-2">3-2</option>
+                </select>
+
+                <label class="label">階段 (phase)</label>
+                <select id="metaPhase" class="select">
+                  <option value="practice">practice（平時）</option>
+                  <option value="midterm" selected>midterm（期中）</option>
+                  <option value="final">final（期末）</option>
+                </select>
+
+                <label class="label">副本 (dungeon)</label>
+                <select id="metaDungeon" class="select">
+                  <option value="chinese_forest" selected>文字魔法森林</option>
+                  <option value="math_mine">數字金礦場</option>
+                  <option value="social_village">社會生活村（施工中）</option>
+                  <option value="english_island">英語探險島（施工中）</option>
+                  <option value="science_lab">自然實驗所（施工中）</option>
+                  <option value="idiom_theater">成語小劇場（施工中）</option>
+                  <option value="sentence_diary">造句日記站（施工中）</option>
+                </select>
+              </div>
+
+              <div class="hint">
+                下載 JSON 後，把檔案放到 <code>/packs</code>，再把該 pack 加到 <code>/packs/index.json</code> 清單即可上線。
+              </div>
+            </div>
+
+            <div class="card">
+              <h3 class="h3">B. PDF 上傳（可複製文字 PDF）</h3>
+              <input id="pdfFile" type="file" accept="application/pdf" class="input" />
+              <div class="row">
+                <button class="btn btn-secondary" id="parsePdfBtn">解析 PDF 文字</button>
+                <button class="btn btn-ghost" id="clearTextBtn">清空文字</button>
+              </div>
+
+              <h3 class="h3">C. 或直接貼上文字</h3>
+              <textarea id="rawText" class="textarea" placeholder="把 PDF 複製出的文字貼在這裡也可以…"></textarea>
+
+              <div class="row">
+                <button class="btn btn-primary" id="toDraftBtn">轉成題目草稿</button>
+              </div>
+
+              <div class="hint">
+                解析規則：盡量抓「題號 + 題幹 + 選項 A/B/C/D」，如果格式不規則，就先轉成草稿再手動修。
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="h3">D. 題目草稿（可手動修改）</h3>
+            <textarea id="draftJson" class="textarea tall" placeholder="點『轉成題目草稿』後會出現在這裡…"></textarea>
+
+            <div class="row">
+              <button class="btn btn-primary" id="downloadPackBtn">下載 Pack JSON</button>
+              <button class="btn btn-secondary" id="genIndexEntryBtn">產生 index.json 清單項（複製用）</button>
+            </div>
+
+            <div class="card card-inner">
+              <div class="small">index.json 清單項（複製貼上到 /packs/index.json → packs 陣列裡）</div>
+              <pre class="pre" id="indexEntry"></pre>
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="btn btn-ghost" id="backFromAdmin">← 回首頁</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="small">GitHub-only / Session-based / No localStorage. 本網站僅示範學習闖關架構。</div>
+    </footer>
+  </div>
+
+  <!-- PDF.js（CDN）— 用於「上傳 PDF 解析文字」 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.js"></script>
+
+  <script src="./app.js"></script>
+</body>
+</html>
 
