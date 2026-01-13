@@ -1,1 +1,23 @@
+{
+  "packs": [
+    {
+      "id": "g2-1-mid-chinese",
+      "grade": 2,
+      "term": "2-1",
+      "phase": "midterm",
+      "dungeon": "chinese_forest",
+      "title": "二年級上｜期中｜文字魔法森林",
+      "file": "sample-g2-1-mid-chinese.json"
+    },
+    {
+      "id": "g2-1-mid-math",
+      "grade": 2,
+      "term": "2-1",
+      "phase": "midterm",
+      "dungeon": "math_mine",
+      "title": "二年級上｜期中｜數字金礦場",
+      "file": "sample-g2-1-mid-math.json"
+    }
+  ]
+}
 
