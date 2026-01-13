@@ -1,1 +1,60 @@
+{
+  "meta": {
+    "id": "g2-1-mid-chinese",
+    "title": "二年級上｜期中｜文字魔法森林",
+    "grade": 2,
+    "term": "2-1",
+    "phase": "midterm",
+    "dungeon": "chinese_forest"
+  },
+  "questions": [
+    {
+      "id": "cf-001",
+      "type": "mcq",
+      "difficulty": 1,
+      "prompt": "「林」的部首是什麼？",
+      "choices": ["木", "水", "口", "心"],
+      "answer": "木"
+    },
+    {
+      "id": "cf-002",
+      "type": "mcq",
+      "difficulty": 1,
+      "prompt": "「明」這個字是由哪兩個字組成？",
+      "choices": ["日和月", "木和木", "水和火", "口和心"],
+      "answer": "日和月"
+    },
+    {
+      "id": "cf-003",
+      "type": "mcq",
+      "difficulty": 2,
+      "prompt": "「森」的部首是什麼？",
+      "choices": ["木", "水", "土", "火"],
+      "answer": "木"
+    },
+    {
+      "id": "cf-004",
+      "type": "fill",
+      "difficulty": 2,
+      "prompt": "請填空：『春___花開』（填一個字）",
+      "answer": "暖"
+    },
+    {
+      "id": "cf-005",
+      "type": "mcq",
+      "difficulty": 3,
+      "prompt": "下面哪一個是「相似字」概念最接近「未」？",
+      "choices": ["末", "水", "田", "日"],
+      "answer": "末"
+    },
+    {
+      "id": "cf-006",
+      "type": "mcq",
+      "difficulty": 2,
+      "prompt": "「河」的部首是什麼？",
+      "choices": ["氵", "木", "口", "艹"],
+      "answer": "氵"
+    }
+  ]
+}
 
