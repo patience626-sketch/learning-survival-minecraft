@@ -1,1 +1,197 @@
+:root{
+  --font: "Press Start 2P", system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", sans-serif;
+
+  --bg1: #2c3e1f;      /* 草地深 */
+  --bg2: #5a3a1d;      /* 土壤 */
+  --panel: #1f2a18;
+  --card: #24321b;
+
+  --text: #eaf6dd;
+  --muted: rgba(234,246,221,.75);
+
+  --accent: #5bd35b;   /* 綠色 */
+  --accent2:#ffd24d;   /* 金色 */
+  --danger: #ff6b6b;
+
+  --border: #0c1208;
+  --shadow: rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--font);
+  color:var(--text);
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55)),
+    repeating-linear-gradient(0deg, var(--bg1), var(--bg1) 24px, #2a381e 24px, #2a381e 48px),
+    repeating-linear-gradient(90deg, var(--bg2), var(--bg2) 24px, #4a2f18 24px, #4a2f18 48px);
+}
+
+code{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:12px; background: rgba(0,0,0,.25); padding:2px 6px; border-radius:6px;}
+
+#app{min-height:100%; display:flex; flex-direction:column;}
+
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 16px;
+  background: rgba(0,0,0,.35);
+  border-bottom: 4px solid var(--border);
+  box-shadow: 0 10px 0 rgba(0,0,0,.1);
+}
+.logo{font-size:14px; letter-spacing:1px;}
+.subtitle{font-size:10px; opacity:.9; margin-top:4px;}
+.topbar-left{display:flex; flex-direction:column; gap:6px;}
+.topbar-right{display:flex; gap:8px;}
+
+.main{flex:1; padding:18px 14px;}
+.footer{padding:10px 14px; background: rgba(0,0,0,.35); border-top: 4px solid var(--border);}
+
+.screen{max-width:1100px; margin:0 auto;}
+.hidden{display:none;}
+
+.panel{
+  background: rgba(0,0,0,.25);
+  border: 4px solid var(--border);
+  border-radius: 14px;
+  padding:16px;
+  box-shadow: 0 12px 0 var(--shadow);
+}
+
+.h1{font-size:18px; margin:0 0 12px;}
+.h2{font-size:14px; margin:0 0 10px;}
+.h3{font-size:12px; margin:0 0 10px;}
+.p{font-size:11px; line-height:1.6; color:var(--muted); margin:0 0 14px;}
+.small{font-size:10px; line-height:1.5; color:var(--muted);}
+
+.grid-2{display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
+.grid-3{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;}
+@media (max-width: 980px){ .grid-3{grid-template-columns: 1fr 1fr;} }
+@media (max-width: 760px){ .grid-2{grid-template-columns:1fr;} .grid-3{grid-template-columns:1fr;} }
+
+.card{
+  background: rgba(0,0,0,.25);
+  border: 4px solid var(--border);
+  border-radius: 14px;
+  padding:12px;
+  box-shadow: 0 10px 0 var(--shadow);
+}
+.card-inner{
+  background: rgba(255,255,255,.03);
+  border-color: rgba(0,0,0,.45);
+  box-shadow: none;
+}
+
+.row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+.row.right{justify-content:flex-end;}
+.info{margin-top:10px; font-size:11px; color:var(--muted);}
+
+.btn{
+  font-family:var(--font);
+  font-size:11px;
+  padding:10px 12px;
+  border-radius:12px;
+  border: 4px solid var(--border);
+  cursor:pointer;
+  box-shadow: 0 8px 0 var(--shadow);
+  transition: transform .05s ease;
+  user-select:none;
+}
+.btn:active{ transform: translateY(3px); box-shadow: 0 5px 0 var(--shadow); }
+.btn-primary{ background: var(--accent); color:#0c160a; }
+.btn-secondary{ background: var(--accent2); color:#2b1a00; }
+.btn-ghost{ background: rgba(255,255,255,.08); color:var(--text); }
+.btn[disabled]{ opacity:.45; cursor:not-allowed; }
+
+.form{display:grid; grid-template-columns: 1fr; gap:10px;}
+.label{font-size:10px; color:var(--muted);}
+.select, .input, .textarea{
+  width:100%;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size:12px;
+  padding:10px 10px;
+  border-radius:12px;
+  border: 4px solid var(--border);
+  background: rgba(0,0,0,.35);
+  color: var(--text);
+  outline:none;
+}
+.textarea{min-height:140px; resize:vertical;}
+.textarea.tall{min-height:280px;}
+.pre{
+  white-space:pre-wrap;
+  background: rgba(0,0,0,.35);
+  border: 4px solid var(--border);
+  border-radius: 12px;
+  padding:10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size:12px;
+  color: var(--text);
+}
+
+.hint{
+  margin-top:10px;
+  font-size:10px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.crumb{font-size:10px; color:var(--muted); margin-bottom:10px;}
+
+.pill{
+  font-size:10px;
+  padding:6px 10px;
+  border-radius:999px;
+  border: 3px solid var(--border);
+  background: rgba(0,0,0,.25);
+  box-shadow: 0 6px 0 var(--shadow);
+}
+
+.run-top{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
+
+.progressbar{
+  height:16px;
+  border-radius:999px;
+  border: 4px solid var(--border);
+  background: rgba(0,0,0,.35);
+  overflow:hidden;
+  margin: 12px 0;
+  box-shadow: 0 8px 0 var(--shadow);
+}
+.progressbar-inner{
+  height:100%;
+  width:0%;
+  background: var(--accent);
+}
+
+.q-meta{display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap;}
+.q-prompt{font-size:12px; line-height:1.65; margin: 8px 0 12px;}
+.choices{display:grid; grid-template-columns: 1fr; gap:10px;}
+.choiceBtn{ width:100%; text-align:left; }
+
+.feedback{
+  margin-top:10px;
+  font-size:11px;
+  line-height:1.6;
+  padding:10px;
+  border-radius:12px;
+  border: 4px solid var(--border);
+  background: rgba(0,0,0,.25);
+}
+.feedback.ok{ border-color: rgba(0,0,0,.55); background: rgba(91,211,91,.14); }
+.feedback.bad{ border-color: rgba(0,0,0,.55); background: rgba(255,107,107,.14); }
+
+.big{font-size:12px; line-height:1.7;}
+.parts{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;}
+.part{
+  font-size:10px;
+  padding:8px 10px;
+  border-radius:12px;
+  border: 4px solid var(--border);
+  background: rgba(0,0,0,.25);
+  box-shadow: 0 6px 0 var(--shadow);
+}
+
+.houses{margin-top:10px; font-size:13px; line-height:1.8;}
 
